@@ -1,13 +1,13 @@
-import React from 'react'
+import React from 'react';
 
 class About extends React.Component {
   render () {
     return (
       <div>
-        <h2>AboutTest</h2>
-        <p>This is a description of the site.</p>
+        <h2>Inbox Test</h2>
+        <p>This is your Inbox.</p>
       </div>
-    )
+    );
   }
 }
 

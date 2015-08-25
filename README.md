@@ -1,2 +1,2 @@
 # flux-app-boilerplate
-React, fluxible and standard, all tied up with gulp
+React, reflux and standard, all tied up with gulp and browserify

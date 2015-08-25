@@ -1,4 +1,4 @@
-var config = {};
+var config = {}
 
 config.client = {
   env: process.env.NODE_ENV || 'development',
@@ -6,8 +6,8 @@ config.client = {
     path: process.env.FLUX_APP_SOURCE_PATH || __dirname + '/lib/client/index.js'
   },
   build: {
-    path: process.env.FLUX_APP_BUILD_PATH || __dirname + '/build/js'
+    path: process.env.FLUX_APP_BUILD_PATH || __dirname + '/static'
   }
-};
+}
 
-module.exports = config;
+module.exports = config
