@@ -1,2 +1,3 @@
 # flux-app-boilerplate
-React, reflux and standard, all tied up with gulp and browserify
+
+[React](https://github.com/facebook/react), [redux](http://rackt.github.io/redux/) and [standard](https://github.com/feross/standard), all tied up with [gulp](http://gulpjs.com/) and [browserify](http://browserify.org)
