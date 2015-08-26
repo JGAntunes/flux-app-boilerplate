@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react'
 
 class About extends React.Component {
   render () {
@@ -7,7 +7,7 @@ class About extends React.Component {
         <h2>Inbox Test</h2>
         <p>This is your Inbox.</p>
       </div>
-    );
+    )
   }
 }
 
