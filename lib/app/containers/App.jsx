@@ -1,28 +1,87 @@
-import React from 'react'
-import { Link } from 'react-router'
+import React, { Component, PropTypes } from 'react'
+import { connect } from 'react-redux'
+import Explore from '../components/Explore.jsx'
+import { resetErrorMessage } from '../actions'
 
-class App extends React.Component {
+class App extends Component {
+
   static propTypes = {
-    children: React.PropTypes.node
+    errorMessage: PropTypes.string,
+    location: PropTypes.shape({
+      pathname: PropTypes.string.isRequired
+    }),
+    params: PropTypes.shape({
+      userLogin: PropTypes.string,
+      repoName: PropTypes.string
+    }).isRequired,
+    resetErrorMessage: PropTypes.func,
+    children: PropTypes.node
   }
+
+  static contextTypes = {
+    router: PropTypes.object.isRequired
+  }
+
+  constructor (props) {
+    super(props)
+    this.handleChange = this.handleChange.bind(this)
+    this.handleDismissClick = this.handleDismissClick.bind(this)
+  }
+
   render () {
+    // Injected by React Router
+    const { location, children } = this.props
+    const { pathname } = location
+    const value = pathname.substring(1)
+
     return (
       <div>
-        <h1>App</h1>
-        {/* change the <a>s to <Links>s */}
-        <ul>
-          <li><Link to='/about'>About</Link></li>
-          <li><Link to='/inbox'>Inbox</Link></li>
-        </ul>
-
-        {/*
-          next we replace `<Child>` with `this.props.children`
-          the router will figure out the children for us
-        */}
-        {this.props.children}
+        <Explore value={value}
+                 onChange={this.handleChange} />
+        <hr />
+        {this.renderErrorMessage()}
+        {children}
       </div>
     )
   }
+
+  renderErrorMessage () {
+    const { errorMessage } = this.props
+    if (!errorMessage) {
+      return null
+    }
+
+    return (
+      <p style={{ backgroundColor: '#e99', padding: 10 }}>
+        <b>{errorMessage}</b>
+        {' '}
+        (<a href='#'
+            onClick={this.handleDismissClick}>
+          Dismiss
+        </a>)
+      </p>
+    )
+  }
+
+  handleDismissClick (e) {
+    this.props.resetErrorMessage()
+    e.preventDefault()
+  }
+
+  handleChange (nextValue) {
+    // Available thanks to contextTypes below
+    const { router } = this.context
+    router.transitionTo(`/${nextValue}`)
+  }
 }
 
-export default App
+function mapStateToProps (state) {
+  return {
+    errorMessage: state.errorMessage
+  }
+}
+
+export default connect(
+  mapStateToProps,
+  { resetErrorMessage }
+)(App)
