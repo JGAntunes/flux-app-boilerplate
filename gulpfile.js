@@ -46,11 +46,12 @@ function clientWatch () {
 function serverWatch () {
   gutil.log('-> Watching Server...')
 
-  nodemon({ script: 'index.js', ext: ['js', 'jsx'], ignore: ['gulpfile.js', 'static/bundle.js', 'node_modules/*', 'lib/client/*'], watch: ['lib/server/*', 'lib/app/*'] })
-    .on('change', [])
-    .on('restart', function () {
-      console.log('Server restarted')
-    })
+  nodemon({
+    script: 'index.js',
+    ext: 'js jsx',
+    ignore: ['gulpfile.js', 'dist/*', 'node_modules/*', 'lib/client/*'],
+    watch: ['lib/server/*', 'lib/app/*']
+  })
 }
 
 function bundleDev (bundler) {
