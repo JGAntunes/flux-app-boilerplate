@@ -35,9 +35,9 @@ class App extends Component {
     const value = pathname.substring(1)
 
     return (
-      <div>
-        <Explore value={value}
-                 onChange={this.handleChange} />
+      <div className='container'>
+        <h1>Flux App</h1>
+        <Explore value={value} onChange={this.handleChange} />
         <hr />
         {this.renderErrorMessage()}
         {children}

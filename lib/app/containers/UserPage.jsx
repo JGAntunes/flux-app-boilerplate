@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
+import { Row } from 'react-bootstrap'
 import { loadUser, loadStarred } from '../actions'
 import User from '../components/User.jsx'
 import Repo from '../components/Repo.jsx'
@@ -48,22 +49,25 @@ class UserPage extends Component {
     const { starredRepos, starredRepoOwners, starredPagination } = this.props
     return (
       <div>
-        <User user={user} />
+        <Row>
+          <User user={user} />
+        </Row>
         <hr />
-        <List renderItem={this.renderRepo}
-              items={zip(starredRepos, starredRepoOwners)}
-              onLoadMoreClick={this.handleLoadMoreClick}
-              loadingLabel={`Loading ${login}’s starred...`}
-              {...starredPagination} />
+        <h2>Starred repositories</h2>
+        <Row>
+          <List renderItem={this.renderRepo}
+                items={zip(starredRepos, starredRepoOwners)}
+                onLoadMoreClick={this.handleLoadMoreClick}
+                loadingLabel={`Loading ${login}’s starred...`}
+                {...starredPagination} />
+        </Row>
       </div>
     )
   }
 
   renderRepo ([repo, owner]) {
     return (
-      <Repo repo={repo}
-            owner={owner}
-            key={repo.fullName} />
+      <Repo repo={repo} owner={owner} key={repo.fullName} />
     )
   }
 

@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react'
+import { Button } from 'react-bootstrap'
 
 export default class List extends Component {
   static propTypes = {
@@ -43,11 +44,9 @@ export default class List extends Component {
   renderLoadMore () {
     const { isFetching, onLoadMoreClick } = this.props
     return (
-      <button style={{ fontSize: '150%' }}
-              onClick={onLoadMoreClick}
-              disabled={isFetching}>
+      <Button onClick={onLoadMoreClick} disabled={isFetching}>
         {isFetching ? 'Loading...' : 'Load More'}
-      </button>
+      </Button>
     )
   }
 }

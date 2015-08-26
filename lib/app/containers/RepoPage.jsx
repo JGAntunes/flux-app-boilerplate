@@ -50,9 +50,9 @@ class RepoPage extends Component {
     const { stargazers, stargazersPagination } = this.props
     return (
       <div>
-        <Repo repo={repo}
-                    owner={owner} />
+        <Repo repo={repo} owner={owner} />
         <hr />
+        <h2>Stargazers</h2>
         <List renderItem={this.renderUser}
               items={stargazers}
               onLoadMoreClick={this.handleLoadMoreClick}

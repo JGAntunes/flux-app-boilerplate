@@ -1,6 +1,9 @@
 var gulp = require('gulp')
 var gutil = require('gulp-util')
 var size = require('gulp-size')
+var sass = require('gulp-ruby-sass')
+var notify = require('gulp-notify')
+var bower = require('gulp-bower')
 var uglify = require('gulp-uglify')
 var buffer = require('vinyl-buffer')
 var source = require('vinyl-source-stream')
@@ -84,16 +87,43 @@ function bundleProd (bundler) {
     .pipe(gulp.dest(config.build.path))
 }
 
+function setupBower () {
+  gutil.log('-> Setting up bower...')
+
+  return bower()
+    .pipe(gulp.dest(config.source.bower))
+}
+
+function bundleCSS () {
+  gutil.log('-> Bundling CSS...')
+
+  return sass(config.source.sass + '/main.scss', {
+      style: 'expanded',
+      loadPath: [
+        config.source.bower,
+        config.source.sass
+      ]
+    })
+    .on('error', notify.onError(function (error) {
+      return 'Error: ' + error.message
+    }))
+    .pipe(gulp.dest(config.build.path + '/css'))
+}
+
 function clean (cb) {
   del([path.join(config.build.path, '*')], cb)
 }
+
+gulp.task('bower', setupBower)
+gulp.task('css', bundleCSS)
+gulp.task('styles', ['bower', 'css'])
 
 gulp.task('serverwatch', serverWatch)
 
 gulp.task('clientwatch', ['clean'], clientWatch)
 
-gulp.task('build', compile)
+gulp.task('build', ['styles'], compile)
 gulp.task('clean', clean)
 
-gulp.task('dev', ['clientwatch', 'serverwatch'])
-gulp.task('default', ['clean'], compile)
+gulp.task('dev', ['styles', 'clientwatch', 'serverwatch'])
+gulp.task('default', ['clean', 'build'])
