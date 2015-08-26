@@ -2,6 +2,9 @@ import React from 'react'
 import { Link } from 'react-router'
 
 class App extends React.Component {
+  static propTypes = {
+    children: React.PropTypes.node
+  }
   render () {
     return (
       <div>
@@ -18,7 +21,7 @@ class App extends React.Component {
         */}
         {this.props.children}
       </div>
-    );
+    )
   }
 }
 
