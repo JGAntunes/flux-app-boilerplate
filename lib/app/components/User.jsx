@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react'
 import { Link } from 'react-router'
+import { Col, Thumbnail } from 'react-bootstrap'
 
 export default class User extends Component {
   static propTypes = {
@@ -14,14 +15,15 @@ export default class User extends Component {
     const { login, avatarUrl, name } = this.props.user
 
     return (
-      <div className='User'>
+      <Col xs={6} sm={4} md={2} className='User'>
         <Link to={`/${login}`}>
-          <img src={avatarUrl} width='72' height='72' />
-          <h3>
-            {login} {name && <span>({name})</span>}
-          </h3>
+          <Thumbnail src={avatarUrl} alt={name}>
+            <h5>
+              {login} {name && <span>({name})</span>}
+            </h5>
+          </Thumbnail>
         </Link>
-      </div>
+      </Col>
     )
   }
 }
